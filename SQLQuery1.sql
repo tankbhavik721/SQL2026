@@ -104,6 +104,106 @@ FROM customers
 WHERE country != 'USA'
 ORDER BY score ASC;
 
+--Find all customers with a score strictly greater than 400, sorted by score from highest to lowest
+
+SELECT *
+FROM customers
+WHERE score > 400
+ORDER BY SCORE DESC;
+
+--Retrieve all customers from the USA, sorted alphabetically (A to Z) by their first_name.
+
+SELECT *
+FROM customers
+WHERE country = 'USA'
+ORDER BY first_name ASC;
+
+--Find all customers from Germany who have a score under 600, sorted by their id in descending order.
+
+SELECT *
+FROM customers
+WHERE country = 'GERMANY' AND score <600
+ORDER BY id DESC;
+
+--Select all customers who are either from the UK OR have a score equal to 0, ordered by score from lowest to highest.
+
+SELECT * 
+FROM customers 
+WHERE country = 'UK' OR score = 0 
+ORDER BY score ASC;
+
+--Retrieve all customers located in Germany or USA. Order the results by country alphabetically (A to Z), and within each country, sort by score from highest to lowest.
+
+SELECT * 
+FROM customers 
+WHERE country IN ('GERMANY','USA')
+ORDER BY country ASC,SCORE DESC; 
+
+--Find all customers with a score between 300 and 800, sorted by first_name in reverse alphabetical order (Z to A).
+
+SELECT *
+FROM customers
+WHERE score BETWEEN 300 AND 800
+ORDER BY first_name DESC;
+
+--Select all customers who are not from Germany, ordered first by country (A to Z) and second by first_name (A to Z).
+
+
+
+
+
+--Select all customers who are not from Germany, ordered first by country (A to Z) and second by first_name (A to Z).
+
+SELECT *
+FROM customers
+WHERE country != 'GERMANY'
+ORDER BY country, first_name ASC;
+
+/* GROUP BY CLAUSE
+AGGREGATION FUNCTION - COUNT(),SUM(),AVG(),MIN(),MAX()
+*/
+
+-- Find the total score of each country
+
+SELECT 
+country
+SUM (COUNTRY)
+FROM customers
+GROUP BY score;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
