@@ -4,7 +4,8 @@ SELECT TOP (1000) [id]
       ,[score]
   FROM [MyDatabase].[dbo].[customers]
 
-
+USE MyDatabase;
+GO
   SELECT *
   FROM customers;
 
@@ -166,68 +167,174 @@ AGGREGATION FUNCTION - COUNT(),SUM(),AVG(),MIN(),MAX()
 -- Find the total score of each country
 
 SELECT 
-country
-SUM (COUNTRY)
+country,
+SUM (score)
 FROM customers
-GROUP BY score;
+GROUP BY country;
+
+--Write a query to find the total number of customers in each country
+
+SELECT 
+country,
+SUM(id) as total_customers
+from customers
+group by country;
+
+--Calculate the average score for each country
+
+SELECT 
+country,
+AVG(SCORE)
+FROM customers
+GROUP BY country;
+
+--Find the highest (maximum) score in each country
+
+SELECT 
+country,
+MAX(SCORE)
+FROM customers
+GROUP BY country;
+
+--Calculate the total sum of score points for each country
+
+SELECT 
+country,
+SUM (score)
+FROM customers
+GROUP BY country;
+
+--Count how many customers have a score strictly greater than 0 in each country
+
+SELECT 
+    
+    country, 
+    COUNT (ID) AS ACTIVE_CUSTOMERS
+FROM customers
+WHERE score >0
+GROUP BY country;
+
+--Calculate the average score for customers in each country, but only include customers with a score of at least 400.
+
+SELECT 
+    country,
+    AVG (SCORE) AS AVG_SCORE
+
+FROM customers
+WHERE score >= 400
+GROUP BY country;
+
+-- List each country along with its total customer count, ordered by the customer count from highest to lowest.
+
+SELECT 
+country,
+COUNT(ID)
+
+FROM customers
+GROUP BY country
+ORDER BY COUNT(ID) DESC;
 
 
+--Find the average score for each country, sorted alphabetically by country name.
+
+SELECT 
+    country,
+    AVG (SCORE)
 
 
+FROM customers
+GROUP BY country
+ORDER BY country ASC
+
+-- HAVING CLAUSE
+/* FIND THE AVERAGE SCORE OF EACH COUNTRY CONSIDERING ONLY CUSTOMERS WITH A SCORE NOT EQUAL TO 0 AND 
+RETURN ONLY THOSE COUNTRIES WITH AN AVERAGE OF SCORE OF GREATER THAN 430 */
+
+SELECT 
+    country,
+    AVG (score)
+
+FROM customers
+WHERE score ! = 0
+GROUP BY  country
+HAVING AVG (SCORE) >430;
+
+--Write a query to find countries that have strictly more than 1 customer.
+
+SELECT 
+    country,
+    COUNT (id)
+FROM customers
+--WHERE COUNT (id) >1; - this code is wrong bcz either we can find the count or group the country so having clause will be apply
+group by country
+having COUNT (id) >1;
+
+--Find all countries where the average score is strictly greater than 500.
+
+SELECT 
+    country,
+    AVG (score)
+FROM customers
+group by country
+having AVG (score) >500;
+
+--Retrieve countries where the total sum of scores is at least 800.
+
+SELECT 
+    country,
+    SUM (SCORE)
+
+FROM customers
+GROUP BY country
+HAVING SUM (SCORE) > 800;
+
+--Find countries where even the lowest score (MIN) is greater than 100.
+SELECT 
+    country,
+    MIN (SCORE)
+
+FROM customers
+GROUP BY country
+HAVING MIN (SCORE) >100;
+
+/* Exclude customers with a score of 0 first (WHERE). 
+Then, group by country and return only those countries with an average score greater than 450 (HAVING).
+*/
+
+SELECT 
+    country,
+    AVG (score)
+
+FROM customers
+WHERE score > 0
+GROUP BY country
+HAVING AVG (score) >450;
+
+--Exclude customers from the UK. Then, group by country and find countries with a total score greater than 800
+
+SELECT 
+    country,
+    SUM (score)
+
+FROM customers
+WHERE country !='UK'
+GROUP BY country
+HAVING SUM (score)>800;
 
 
+--Find countries with more than 1 customer. Display the country and its average score, sorted by the average score from highest to lowest.
 
+SELECT 
+    country,
+    AVG (score)
+FROM customers
+GROUP BY country
+HAVING COUNT (*) >1
+order by score desc
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*SELECT country, AVG(score) AS avg_score
+FROM customers
+GROUP BY country
+HAVING COUNT(*) > 1
+ORDER BY avg_score DESC;
 
