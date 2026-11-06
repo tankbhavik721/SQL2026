@@ -326,15 +326,47 @@ HAVING SUM (score)>800;
 
 SELECT 
     country,
-    AVG (score)
+    AVG (score) as avg_score
 FROM customers
-GROUP BY country
-HAVING COUNT (*) >1
+group by country
+having COUNT (country) > 1
+order by avg(score)desc;
+
+
+-- Find countries where the maximum score is 750 or higher, ordered alphabetically by country name.
+
+SELECT 
+    country,
+    score
+
+FROM customers
+where score >= 750
+order by country asc;
+
+--DISTINCT CLAUSE
+
+-- unique list of all country
+
+SELECT distinct 
+    country
+    
+FROM customers;
+
+--top clause
+
+-- retrieve only 3 country
+
+SELECT TOP 3 *
+    
+FROM customers;
+ 
+-- RETRIEVE THE TOP 3 CUSTOMERS WITH THE HIGHEST SCORE
+
+SELECT TOP 3 
+    first_name,
+    score
+    
+FROM customers
 order by score desc
 
-/*SELECT country, AVG(score) AS avg_score
-FROM customers
-GROUP BY country
-HAVING COUNT(*) > 1
-ORDER BY avg_score DESC;
 
