@@ -8,7 +8,7 @@ USE MyDatabase;
 GO
   SELECT *
   FROM customers;
-
+-- DATA QUERY LANGUAGE 
 -- WHERE (FILTER CONDITIONS PRACTICE QUESTIONS)
 
 --1	Maria	Germany	350
@@ -369,4 +369,109 @@ SELECT TOP 3
 FROM customers
 order by score desc
 
+--PRACTICE QUESTION BY COMBINING ALL CLAUSES
+
+--Write a query to return a list of all unique countries in the table, sorted alphabetically.
+
+SELECT DISTINCT TOP 3
+    country
+
+FROM customers
+ORDER BY country ASC
+
+--Retrieve the top 2 highest-scoring customers in the entire table.
+
+SELECT TOP 2 
+    first_name,
+    score 
+FROM customers
+order by score desc
+
+--Retrieve the top 2 unique scores from the table, ordered from highest to lowest
+
+SELECT DISTINCT TOP 2
+    score
+FROM customers
+ORDER BY score desc
+
+--Find all unique countries of customers who have a score greater than 400, ordered in reverse alphabetical order (Z to A)
+
+SELECT DISTINCT 
+    country,
+    score
+
+FROM customers
+WHERE score >400
+ORDER BY country DESC;
+
+--Retrieve the top 2 customers who are not from the USA, sorted by their score in descending order.
+
+SELECT TOP 2
+    score
+
+FROM customers
+WHERE country ! = 'USA'
+ORDER BY score desc;
+
+
+/* Exclude customers with a score of 0 first (WHERE).Then, calculate the average score for each country (GROUP BY).
+Keep only countries where the average score is 500 or higher (HAVING). 
+Sort the results by average score from highest to lowest (ORDER BY) and display only the top 1 country (TOP / LIMIT)
+
+*/
+
+SELECT TOP 1
+    
+    AVG (score) as AVG_SCORE
+
+FROM customers
+WHERE score > 0
+group by country
+HAVING AVG(score) >= 500
+ORDER BY AVG_SCORE desc
+
+/* Find the total sum of scores for each country, considering only customers with a score of at least 350. 
+Keep only countries whose combined score exceeds 800.
+Display the top 2 countries ordered by their total score in descending order.
+*/
+
+SELECT top 2
+    country,
+    SUM(score)
+    
+
+FROM customers
+WHERE score >= 350
+group by country
+having SUM(score) > 800
+order by country desc
+
+/*Count how many distinct customer names exist per country for customers with a score greater than 100
+Display only countries with more than 1 such customer, sorted by country name alphabetically, limited to 1 result.
+*/
+
+--DATA DEFINATION LANGUAGE - CREATE,ALTER,DROP CREATE TABLE (COLUMN_NAME, DATATYPE, CONSTRANT)
+
+
+-- CREATE A NEW TABLE CALLED PERSONS WITH COLUMNS: ID,PERSON_NAME,BIRTH_DATE,PHONE 
+CREATE TABLE PERSONS (
+    ID INT NOT NULL,
+    PERSON_NAME VARCHAR(50) NOT NULL,
+    BIRTH_DATE DATE,
+    PHONE_NUMBER VARCHAR(15) NOT NULL,
+    CONSTRAINT PK_PERSONS PRIMARY KEY (ID)  --THIS IS STANDRAD FORMAT TO MAINTAINT ANY PRIMARY,FOREIGN KEY AT LAST AFTER DEFINE SCHEMA
+)
+
+-- FOR CHANGE IN TABLE 
+
+ALTER TABLE PERSONS
+ADD EMAIL_ID VARCHAR(50) NOT NULL
+
+-- FOR DROP COLUMN
+ALTER TABLE PERSONS
+DROP COLUMN PHONE_NUMBER
+
+-- FOR DROP TABLE
+
+DROP TABLE PERSONS
 
