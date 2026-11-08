@@ -475,3 +475,74 @@ DROP COLUMN PHONE_NUMBER
 
 DROP TABLE PERSONS
 
+-- DML Language 
+
+-- insert column
+
+SELECT *
+
+FROM customers
+
+INSERT INTO customers (id,first_name,country,score)
+values (6,'Anna','USA',NULL),(7,'Sam',NULL,100),(8,'USA','Max',NULL),(9,'Andreas','Germany',NULL);
+
+INSERT INTO customers(id,first_name)
+values (10,'Sahra')
+
+-- step to insert data from source table (customers) to target table (persons)
+
+insert into PERSONS (ID,PERSON_NAME,BIRTH_DATE,PHONE_NUMBER)
+SELECT 
+    id,
+    first_name,
+    null,
+    'unknown'
+from customers;
+
+SELECT *
+FROM PERSONS;
+
+--CHANGE THE SCORE OF CUSTOMERS 10 TO 0 AND UPDATE THE COUNTRY TO UK
+UPDATE customers
+SET score = 10,
+    country = 'UK'
+WHERE id = 10;
+
+UPDATE customers
+SET score = 0
+    
+WHERE id = 10;
+
+
+
+SELECT *
+FROM customers;
+
+--UPDATE ALL CUSTOMERS WITH A NULL SCORE BY SETTINGS THEIR SCORE TO 0
+
+UPDATE customers
+    SET score = 0
+    WHERE score IS NULL
+
+
+SELECT *
+FROM customers
+WHERE score IS NULL
+
+--UPDATE ALL DATA IN CUSTOMERS TABLE ID > 5
+
+DELETE FROM customers
+WHERE id > 5;
+
+SELECT *
+FROM customers
+WHERE id > 5;
+
+-- TRUNCATE (FAST DELETE ALL DATA) / DELETE(FULL DATA BUT TAKE MORE TIME)
+-- DELETE DATA OF PERSONS TABLE
+
+TRUNCATE TABLE PERSONS;
+
+
+SELECT *
+FROM PERSONS;
