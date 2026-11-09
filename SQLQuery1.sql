@@ -12,7 +12,7 @@ GO
 -- WHERE (FILTER CONDITIONS PRACTICE QUESTIONS)
 
 --1	Maria	Germany	350
---2	 John	USA	900
+--2	John	USA	900
 --3	Georg	UK	750
 --4	Martin	Germany	500
 --5	Peter	USA	0
@@ -546,3 +546,224 @@ TRUNCATE TABLE PERSONS;
 
 SELECT *
 FROM PERSONS;
+
+--DQL COMPARISON OPERATOR (TYPES OF WHERE CLAUSE)
+
+--RETRIEVE ALL CUSTOMERS FROM GERMANY
+-- 1st "=" operator if two values are equal
+SELECT * 
+
+FROM customers
+WHERE country = 'Germany';
+
+--2nd "<> !=" operator if two value are not equal
+-- RETRIEVE ALL CUSTOMERS WHOE ARE NOT FROM GERMANY
+SELECT *
+FROM customers
+--WHERE country <> 'Germany';
+WHERE country != 'Germany';
+
+--3rd ">" operator if a value is greater then another values
+--RETRIEVE ALL CUSTOMER WITH A SCORE GREATER THAN 500.
+
+SELECT *
+
+FROM customers 
+WHERE score > 500;
+
+--4TH ">=" if a value is greater than or equal to another value
+--RETRIEVE ALL CUSTOMER WITH A SCORE of 500 or more.
+
+SELECT *
+
+FROM customers
+WHERE score >= 500;
+
+--5TH "<" IF A VALUE IS LESS THEN ANOTHER VALUE 
+--RETRIEVE ALL CUSTOMER WITH A SCORE LESS THEN 500.
+
+SELECT *
+FROM customers
+WHERE score < 500;
+
+--6TH "<=" IN CASE VALUE IS LESS THEN OR EQUAL TO 500.
+----RETRIEVE ALL CUSTOMER WITH A SCORE LESS THEN OR EQUAL TO 500.
+
+SELECT *
+FROM customers
+WHERE score <= 500;
+
+--DQL LOGICAL OPERATOR (TYPES OF WHERE CLAUSE)
+-- 1ST AND OPERATOR - ALL CONDITION MUST BE TRUE
+
+--RETRIEVE ALL CUSTOMERS WHO ARE FROM USA AND HAVE SCORE GREATER THAN 500.
+
+SELECT * 
+
+FROM customers
+WHERE country = 'USA' AND score > 500;
+
+-- 2ND OR OPERATOR - ONLY ONE CONDITION MUST BE TRUE 
+--RETRIEVE ALL CUSTOMERS WHO ARE EITHER FROM USA OR HAVING SCORE GREATER THAN 500.
+
+SELECT *
+
+FROM customers
+WHERE country = 'USA' OR score > 500;
+
+-- 3RD NOT OPERATOR - (REVERSE) EXCLUDE MATCHING VALUES
+--RETRIEVE ALL CUSTOMERS WITH A SCORE NOT LESS THAN 500.
+
+SELECT *
+FROM customers
+WHERE NOT score < 500;
+
+--DQL RANGE OPERATOR (TYPES OF WHERE CLAUSE)
+
+--BETWEEN OPERATOR 
+--RETRIEVE ALL CUSTOMERS WHOSE SCORE FALLS IN THE RANGE 100 AND 500.
+
+SELECT *
+FROM customers
+WHERE score BETWEEN 100 AND 500
+
+--DQL MEMBERSHIP OPERATOR (TYPES OF WHERE CLAUSE)
+
+--IN OPERATOR CHECK IF A VALUE EXISTS IN A LIST
+--RETRIEVE ALL CUSTOMERS FROM EITHER GERMANY OR USA
+
+SELECT *
+FROM customers
+WHERE country IN ('Germany','USA')
+
+--NOT IN OPERATOR CHECK IF A VALUE EXISTS IN A LIST
+
+SELECT *
+FROM customers
+WHERE country NOT IN ('Germany','USA')
+
+--DQL SEARCH OPERATOR ,SEARCH FOR A PATTERN IN TEXT (TYPES OF WHERE CLAUSE)
+--LIKE OPERATOR 
+
+--FIND ALL CUSTOMERS WHOSE FIRST NAME START WITH 'M'
+
+SELECT *
+FROM customers 
+WHERE first_name like 'M%'
+
+--FIND ALL CUSTOMERS WHOSE FIRST NAME START WITH 'M'
+SELECT *
+FROM customers 
+WHERE first_name like '%N'
+
+--FIND ALL CUSTOMERS WHOSE FIRST NAME CONTAIN R
+
+SELECT *
+FROM customers 
+WHERE first_name like '%R%'
+
+--FIND ALL CUSTOMERS WHOSE FIRST NAME HAS 'R' IN THE THIRD POSITION
+
+SELECT *
+FROM customers
+WHERE first_name like '__r%'
+
+--PRACTICE QUESTION OF WHERE CLAUSE
+--COMPARISON OPERATOR 
+--Write a query to find all customers with a score of 500 or higher
+
+SELECT *
+
+FROM customers
+WHERE score >= 500;
+
+--Find all customers who are not located in Germany.
+
+SELECT *
+
+FROM customers
+WHERE country <> 'GERMANY'
+
+--Retrieve all customers whose id is strictly less than 4
+
+SELECT * 
+
+FROM customers
+WHERE id < 4;
+
+--LOGICAL OPERATOR 
+--Retrieve all customers from Germany who also have a score of at least 400.
+
+SELECT *
+
+FROM customers
+WHERE country = 'GERMANY' AND score >=400;
+
+--Find all customers who are either from the USA OR have a score greater than 700
+    
+SELECT *
+
+FROM customers
+WHERE country = 'USA' OR score > 700;
+
+--Retrieve all customers who are NOT from the USA AND do NOT have a score of 0.
+
+SELECT *
+
+FROM customers
+WHERE NOT country = 'USA' AND NOT score = 0;
+
+--RANGE OPERATOR
+--Select all customers whose score falls between 350 and 750 (inclusive).
+
+SELECT *
+FROM customers
+WHERE score BETWEEN 350 AND 750
+
+--Retrieve all customers whose score is NOT BETWEEN 400 and 800
+
+SELECT *
+FROM customers
+WHERE score NOT BETWEEN 400 AND 800
+
+--MEMBERSHIP OPERATOR
+--Select all customers whose country is either Germany or UK using the IN operator.
+
+SELECT *
+
+FROM customers
+WHERE country IN ('GERMANY','USA')
+
+--Retrieve all customers whose country is NOT IN the list ('USA', 'UK')
+
+SELECT *
+
+FROM customers
+WHERE country NOT IN ('USA','UK')
+
+--PATTERN SEARCH OPERATOR
+
+--Find all customers whose first_name starts with the letter 'M'
+
+SELECT *
+FROM customers
+WHERE first_name LIKE 'M%'
+
+--Find all customers whose first_name ends with the letter 'g'
+
+SELECT *
+FROM customers
+WHERE first_name LIKE '%G'
+
+--Retrieve all customers whose first_name contains exactly 4 characters (Hint: Use four underscore wildcards ____)
+
+SELECT *
+FROM customers
+WHERE first_name LIKE '____'
+
+--Retrieve all customers whose first_name does NOT contain the letter 'a'.   
+
+
+SELECT *
+FROM customers
+WHERE first_name NOT LIKE '%A%'
