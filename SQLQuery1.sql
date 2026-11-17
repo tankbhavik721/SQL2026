@@ -767,3 +767,108 @@ WHERE first_name LIKE '____'
 SELECT *
 FROM customers
 WHERE first_name NOT LIKE '%A%'
+
+--SQL JOIN BASICS
+-- SET AND JOINS
+-- JOIN TABLES
+
+-- 1ST NO JOIN BASICS OF JOIN 
+SELECT *
+FROM customers;
+
+SELECT *
+FROM orders;
+
+--2ND INNER JOIN BASIC ONLY MATCHING DATA
+
+-- GET ALL CUSTOMERS ALONG WITH THEIR ORDER, BUT ONLY FOR CUSTOMERS WHO HAE PLACED AN ORDER.
+
+SELECT 
+    id,
+    first_name,
+    order_id,
+    sales
+
+FROM customers 
+INNER JOIN orders 
+ON id = customer_id;
+
+--Write a query to retrieve all columns from both customers and orders for customers who have placed an order.
+
+SELECT *
+
+FROM customers
+INNER JOIN orders
+ON id = customer_id;
+
+--Using aliases (c for customers and o for orders), retrieve id, first_name, order_id, and sales for all matching records.
+
+SELECT 
+    c.id,
+    c.first_name,
+    o.order_id,
+    o.sales
+FROM customers as c
+INNER JOIN orders as o
+ON id = customer_id;
+
+--Retrieve first_name, country, order_id, and sales for customers whose order sales are strictly greater than 15.
+
+SELECT 
+    c.first_name,
+    c.country,
+    o.order_id,
+    o.sales
+FROM customers as c
+INNER JOIN orders as o
+ON id = customer_id
+where o.sales > 15;
+
+--Display first_name, order_id, order_date, and sales for matching customers who are not from Germany, sorted by sales from highest to lowest.
+
+SELECT 
+    c.first_name,
+    o.order_id,
+    o.order_date,
+    o.sales
+FROM customers as c
+INNER JOIN orders as o
+ON id = customer_id
+where country != 'Germany'
+order by o.sales desc;
+
+--Retrieve first_name, score, order_id, and sales for all customers with orders, ordered by score in descending order.
+
+SELECT 
+    c.first_name,
+    c.score,
+    o.order_id,
+    o.sales
+FROM customers as c
+INNER JOIN orders as o
+ON id = customer_id
+order by c.score desc;
+
+
+--Calculate the total sales (SUM) for each country among customers who placed orders.
+
+SELECT 
+    c.country.
+
+
+
+FROM customers as c
+INNER JOIN orders as o
+on 
+
+
+
+
+
+
+
+
+
+
+
+
