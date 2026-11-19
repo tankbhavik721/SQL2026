@@ -853,22 +853,97 @@ order by c.score desc;
 --Calculate the total sales (SUM) for each country among customers who placed orders.
 
 SELECT 
-    c.country.
+    C.country,
+    SUM(O.Sales) as total_sales
+FROM customers AS C
+INNER JOIN orders AS O
+ON id = customer_id
+group by C.country;
+
+--Display each matching customer's first_name along with their total number of orders (COUNT).
+
+SELECT 
+    C.first_name,
+    COUNT(O.sales) as Sales_Orders
+    
+FROM customers as C
+inner join orders as O
+ON C.id = O.customer_id
+group by first_name;
+
+--Find the total sales per country, keeping only countries where total sales are 20 or higher, ordered by total sales from highest to lowest.
+
+SELECT 
+    C.country,
+    SUM (O.sales) as Total_Sales
+FROM customers as C
+inner join orders as O
+on C.id = O.customer_id
+where O.sales >= 20
+group by country
+order by SUM (O.Sales) desc;
+
+--2ND LEFT JOIN BASIC ONLY MATCHING DATA
+
+-- get all customers along with their order, including those without orders.
+
+SELECT 
+    C.id,
+    C.first_name,   
+    C.country,
+    C.score,
+    O.sales
+FROM customers as C
+left join orders as O
+on C.id = O.customer_id;
+
+/* Write a query to retrieve all columns from both customers and orders so that every customer is displayed,
+whether they placed an order or not. */
 
 
-
-FROM customers as c
-INNER JOIN orders as o
-on 
+SELECT *
 
 
+FROM customers as C
+left join orders as O
+on C.id = O.customer_id;
 
+--Using aliases (c for customers and o for orders), retrieve id, first_name, country, order_id, and sales for all customers.
 
+SELECT 
+    C.id,
+    C.first_name,
+    C.country,
+    O.order_id,
+    O.sales
 
+FROM customers as C
+left join orders as O
+on C.id = O.customer_id;
 
+--Find all customers who have never placed an order (Hint: check where o.order_id IS NULL).
 
+SELECT 
+    C.first_name,
+   
+    O.order_id,
+    O.sales
 
+FROM customers as C
+left join orders as O
+on C.id = O.customer_id
+where O.order_id is null;
 
+--Retrieve all customers from Germany who have not placed any orders.
 
+SELECT 
+    C.first_name,
+    C.country,
+    sales
+    
+FROM customers as C
+left join orders as O
+on C.id = O.customer_id
+where O.order_id is null
 
 
