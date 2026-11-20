@@ -946,4 +946,59 @@ left join orders as O
 on C.id = O.customer_id
 where O.order_id is null
 
+/* Retrieve first_name, country, score, order_id, and sales for all customers with a score greater than 300,
+sorted by sales from highest to lowest.*/
+
+
+SELECT 
+    C.first_name,
+    C.country,
+    C.score,
+    O.order_id,
+    O.sales
+
+FROM customers as C
+INNER JOIN orders AS O
+ON C.id = O.customer_id
+WHERE C.score > 300;
+
+--Display first_name, order_id, and order_date for all customers, ordered by order_date in ascending order.
+
+SELECT 
+    C.first_name,
+    O.order_id,
+    O.order_date
+
+FROM customers as C
+INNER JOIN orders AS O
+ON C.id = O.customer_id
+ORDER BY order_date ASC;
+
+/* Display each customer's first_name along with their total number of orders 
+(Hint: use COUNT(o.order_id) instead of COUNT(*) so customers without orders show 0).*/
+
+SELECT 
+    C.first_name,
+    count(O.order_id)
+ 
+FROM customers as C
+INNER JOIN orders AS O
+ON C.id = O.customer_id
+group by C.first_name
+order by count(O.order_id);
+
+--Group by c.id and c.first_name to find all customers whose total sales (SUM(o.sales)) are either less than 20 OR NULL (no orders placed)
+
+SELECT 
+    C.id,
+    C.first_name,
+    SUM(O.sales) as total_sales
+    
+FROM customers as C
+INNER JOIN orders AS O
+ON C.id = O.customer_id
+
+group by C.id, C.first_name
+having SUM(O.sales) < 20
+
 
