@@ -1001,4 +1001,63 @@ ON C.id = O.customer_id
 group by C.id, C.first_name
 having SUM(O.sales) < 20
 
+--ADVANCED JOINS
+
+--LEFT ANTI JOIN (THERE IS NO LEFT ANTI JOIN BUT WE CAN NULL THE ID OF RIGHT COLUMN 
+
+--GET ALL CUSTOMERS WHO HAVEN'T PLACE ANY ORDER
+
+SELECT 
+    C.first_name,
+    O.order_id
+
+FROM customers AS C
+LEFT JOIN orders as O
+On C.id = O.customer_id
+WHERE O.customer_id is null
+
+--RIGHT ANTI JOIN (THERE IS NO RIGHT ANTI JOIN BUT WE CAN NULL THE ORDER_ID OF LEFT COLUMN 
+
+--get all orders without matching customers
+
+SELECT *
+    
+FROM customers AS C
+RIGHT JOIN orders AS O
+ON C.id = O.customer_id
+WHERE C.id IS NULL
+
+--get all orders without matching customers USING LEFT JOIN
+
+SELECT *
+    
+FROM orders AS O
+LEFT JOIN customers AS C
+ON C.id = O.customer_id
+WHERE C.id IS NULL
+
+--FULL JOIN 
+
+--FIND CUSTOMERS WITHOUT ORDER AND ORDERS WITHOUT CUSTOMERS
+
+SELECT *
+    
+FROM orders AS O
+FULL JOIN customers AS C
+ON C.id = O.customer_id
+WHERE C.id IS NULL OR O.order_id IS NULL
+
+--GET ALL CUSTOMERS ALONG WITH THEIR ORDERS,BUT ONLY FOR CUSTOMERS WHO HAVE PLACED AN ORDERS
+
+SELECT *
+
+FROM customers as C
+left join orders as O
+on C.id = O.customer_id
+where O.customer_id is not null
+
+
+
+
+
 
