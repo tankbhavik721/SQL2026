@@ -1056,6 +1056,46 @@ left join orders as O
 on C.id = O.customer_id
 where O.customer_id is not null
 
+USE SalesDB
+GO
+
+--MULTIPLE JOIN
+
+/* TASK: USING SALESDB, RETRIEVE A LIST OF ALL ORDERS, ALONG WITH THE RELATED CUSTOMER,PRODUCT,AND EMPLOYEE DETAILS.FOR EACH DETAILS
+ORDERID,CUSTOMER'S NAME,PRODUCT NAME,SALES,PRICE, SALES PERSON'S NAME */
+
+SELECT 
+	O.Quantity,
+	O.Sales,
+	C.FirstName as Cust_first_name,
+	C.LastName as Cust_last_name,
+	E.FirstName as Sales_Empl_first_name,
+	E.LastName as Sales_Empl_last_name,
+	P.Product as Product_name,
+	P.Price as Product_price
+
+FROM Sales.Orders as O
+left join Sales.customers as C
+ON O.CustomerID = C.CustomerID
+left join Sales.Employees as E
+ON E.EmployeeID = C.CustomerID
+left join Sales.Products as P
+ON P.ProductID = O.ProductID
+left join Sales.Employees
+
+
+
+
+
+select * from Sales.Customers
+
+select * from Sales.Employees
+
+select * from Sales.Orders
+
+select * from Sales.OrdersArchive
+
+select * from Sales.Products
 
 
 
