@@ -1081,7 +1081,6 @@ left join Sales.Employees as E
 ON E.EmployeeID = C.CustomerID
 left join Sales.Products as P
 ON P.ProductID = O.ProductID
-left join Sales.Employees
 
 
 
@@ -1096,6 +1095,72 @@ select * from Sales.Orders
 select * from Sales.OrdersArchive
 
 select * from Sales.Products
+
+
+--Practice question for joins in multiple table
+
+/* Write a FULL JOIN between Sales.Products (p) and Sales.Orders (o) on ProductID. Display p.ProductID, p.Product, p.Category, o.OrderID,
+and o.Quantity so you can spot which product has zero orders. */
+
+SELECT *
+
+FROM Sales.Products;
+
+SELECT *
+
+FROM Sales.Orders;
+
+SELECT 
+    SP.ProductID,
+    SP.Product,
+    SP.Category,
+    SO.OrderID,
+    SO.Quantity
+
+FROM Sales.Products as SP
+FULL join Sales.Orders as SO
+ON SP.ProductID = SO.ProductID;
+
+/*Using FULL JOIN between Sales.Products (p) and Sales.Orders (o), retrieve only the products that 
+do not appear in any order (or orders with invalid products).*/
+
+SELECT * FROM Sales.Products
+SELECT * FROM Sales.Orders
+
+
+SELECT 
+    SP.ProductID,
+    SP.Product,
+    SP.Category,
+    SO.OrderID,
+    SO.Quantity
+
+FROM Sales.Products as SP
+full join Sales.Orders as SO
+ON SP.ProductID = SO.ProductID
+WHERE SO.ProductID is null or SP.ProductID is null
+
+/* Compare Sales.Orders (o) and Sales.OrdersArchive (oa) using a FULL JOIN on OrderID. Display o.OrderID,
+o.OrderStatus (as ActiveStatus), oa.OrderID (as ArchiveOrderID), and oa.OrderStatus (as ArchiveStatus) 
+to see which active order is missing from the archive. */
+
+SELECT *
+FROM Sales.Orders;
+SELECT *
+FROM Sales.OrdersArchive;
+
+SELECT 
+    SO.OrderID,
+    SO.OrderStatus,
+    OSA.OrderID,
+    OSA.OrderStatus
+
+FROM Sales.Orders AS SO
+FULL JOIN Sales.OrdersArchive AS OSA
+ON SO.OrderID = OSA.OrderID
+
+
+
 
 
 
